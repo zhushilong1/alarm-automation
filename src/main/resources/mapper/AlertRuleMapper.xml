@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.youlu.manager.dao.AlertRuleMapper" >
+  <resultMap id="BaseResultMap" type="com.youlu.manager.pojo.AlertRule" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="alert_type" property="alertType" jdbcType="VARCHAR" />
+    <result column="alert_mode" property="alertMode" jdbcType="VARCHAR" />
+    <result column="alert_receive" property="alertReceive" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+      id, alert_type, alert_mode, alert_receive, status, create_time, update_time
+    </sql>
+
+  <select id="getUserList" resultMap="BaseResultMap">
+    SELECT *
+    FROM alert_rule
+    <where>
+      <if test="alertType != null and alertType != '' ">
+        and alert_type LIKE '%' #{alertType} '%'
+      </if>
+      <if test="alertMode != null and alertMode != '' ">
+        and alert_mode  LIKE '%' #{alertMode} '%'
+      </if>
+      <if test="startTime != null and startTime != '' ">
+        and create_time &gt;  #{startTime}
+      </if>
+      <if test="endTime != null and endTime != '' ">
+        and create_time &lt;  #{endTime}
+      </if>
+    </where>
+  </select>
+
+  <update id="updateUserStatus">
+    UPDATE alert_rule
+    SET status = #{status}
+    WHERE id = #{id}
+  </update>
+
+
+  <!--  <select id="getUserList" resultType="com.youlu.manager.dto.AdminUserDTO"></select>-->
+  <!--  <sql id="Base_Column_List" >-->
+<!--    id, alert_type, alert_mode, alert_receive, status, create_time, update_time-->
+<!--  </sql>-->
+<!--  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >-->
+<!--    select -->
+<!--    <include refid="Base_Column_List" />-->
+<!--    from alert_rule-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </select>-->
+<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >-->
+<!--    delete from alert_rule-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </delete>-->
+<!--  <insert id="insert" parameterType="com.youlu.manager.pojo.AlertRule" >-->
+<!--    insert into alert_rule (id, alert_type, alert_mode, -->
+<!--      alert_receive, status, create_time, -->
+<!--      update_time)-->
+<!--    values (#{id,jdbcType=INTEGER}, #{alertType,jdbcType=VARCHAR}, #{alertMode,jdbcType=VARCHAR}, -->
+<!--      #{alertReceive,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, -->
+<!--      #{updateTime,jdbcType=VARCHAR})-->
+<!--  </insert>-->
+<!--  <insert id="insertSelective" parameterType="com.youlu.manager.pojo.AlertRule" >-->
+<!--    insert into alert_rule-->
+<!--    <trim prefix="(" suffix=")" suffixOverrides="," >-->
+<!--      <if test="id != null" >-->
+<!--        id,-->
+<!--      </if>-->
+<!--      <if test="alertType != null" >-->
+<!--        alert_type,-->
+<!--      </if>-->
+<!--      <if test="alertMode != null" >-->
+<!--        alert_mode,-->
+<!--      </if>-->
+<!--      <if test="alertReceive != null" >-->
+<!--        alert_receive,-->
+<!--      </if>-->
+<!--      <if test="status != null" >-->
+<!--        status,-->
+<!--      </if>-->
+<!--      <if test="createTime != null" >-->
+<!--        create_time,-->
+<!--      </if>-->
+<!--      <if test="updateTime != null" >-->
+<!--        update_time,-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--    <trim prefix="values (" suffix=")" suffixOverrides="," >-->
+<!--      <if test="id != null" >-->
+<!--        #{id,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="alertType != null" >-->
+<!--        #{alertType,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="alertMode != null" >-->
+<!--        #{alertMode,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="alertReceive != null" >-->
+<!--        #{alertReceive,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="status != null" >-->
+<!--        #{status,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="createTime != null" >-->
+<!--        #{createTime,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="updateTime != null" >-->
+<!--        #{updateTime,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--  </insert>-->
+<!--  <update id="updateByPrimaryKeySelective" parameterType="com.youlu.manager.pojo.AlertRule" >-->
+<!--    update alert_rule-->
+<!--    <set >-->
+<!--      <if test="alertType != null" >-->
+<!--        alert_type = #{alertType,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="alertMode != null" >-->
+<!--        alert_mode = #{alertMode,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="alertReceive != null" >-->
+<!--        alert_receive = #{alertReceive,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="status != null" >-->
+<!--        status = #{status,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="createTime != null" >-->
+<!--        create_time = #{createTime,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="updateTime != null" >-->
+<!--        update_time = #{updateTime,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--    </set>-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </update>-->
+<!--  <update id="updateByPrimaryKey" parameterType="com.youlu.manager.pojo.AlertRule" >-->
+<!--    update alert_rule-->
+<!--    set alert_type = #{alertType,jdbcType=VARCHAR},-->
+<!--      alert_mode = #{alertMode,jdbcType=VARCHAR},-->
+<!--      alert_receive = #{alertReceive,jdbcType=VARCHAR},-->
+<!--      status = #{status,jdbcType=VARCHAR},-->
+<!--      create_time = #{createTime,jdbcType=VARCHAR},-->
+<!--      update_time = #{updateTime,jdbcType=VARCHAR}-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </update>-->
+</mapper>
